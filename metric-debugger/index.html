@@ -40,7 +40,7 @@
             }
             div.controls, div.values {
                 border-bottom: 1px solid #ddd;
-                padding-bottom: 20px;
+                padding-bottom: 10px;
                 margin-bottom: 20px;
             }
             div.controls>div {
@@ -67,6 +67,12 @@
                 font-weight: bold;
                 font-size: 20px;
             }
+            div.values div.v1val, div.values div.v1val span {
+                color: #24a297;
+            }
+            div.values div.v2val, div.values div.v2val span {
+                color: #ef5c51;
+            }
         </style>
     </head>
 
@@ -76,6 +82,7 @@
 
         <div class="panel">
             <h1>Metric debugger</h1>
+            <p>Drag the arrow tips to rotate or scale the vectors.</p>
             <div class="controls">
                 <div>
                     <span>Rotation</span>
@@ -94,6 +101,14 @@
                 </div>
             </div>
             <div class="values">
+                <div class="figure v1val">
+                    V1=(<span id="v1x">-</span>, <span id="v1y">-</span>); |V1|=<span id="v1magnitude">-</span>
+                </div>
+                <div class="figure v2val">
+                    V2=(<span id="v2x">-</span>, <span id="v2y">-</span>); |V2|=<span id="v2magnitude">-</span>
+                </div>
+            </div>
+            <div class="values">
                 <div class="figure">
                     <span>Cosine similarity: </span>
                     <span class="value" id="cosine-sim"></span>
@@ -105,6 +120,11 @@
                 <div class="figure">
                     <span>Euclidean distance: </span>
                     <span class="value" id="euclidean-distance"></span>
+                </div>
+            </div>
+            <div>
+                <div id="chart-angle" class="chart">
+                    
                 </div>
             </div>
         </div>
@@ -142,6 +162,12 @@
                 l.setAttribute('style', 'stroke:'+color+';stroke-width:'+width);
                 return l;
             }
+            var polyline = (vecs, color='rgb(0,0,0)', width=1, uri="http://www.w3.org/2000/svg") => {
+                const el = document.createElementNS(uri, 'polyline');
+                el.setAttribute('points', assemblePoints(vecs));
+                el.setAttribute('style', 'stroke:'+color+';stroke-width:'+width);
+                return el;
+            }
             var text = (pos, txt, fill='', uri="http://www.w3.org/2000/svg") => {
                 const el = document.createElementNS(uri, 'text');
                 el.setAttribute('x', pos.x);
@@ -159,14 +185,14 @@
                 const bottom2 = space2screen(bottom.add(dirNorm.rotate90().multiply(-breadth/2)));
                 return [tip1, tip2, bottom2, bottom1];
             }
-            var assembleTrianlglePoints = (a, b, c, d) => a.x+','+a.y+' '+b.x+','+b.y+' '+c.x+','+c.y+' '+d.x+','+d.y;
+            var assemblePoints = (pts) => pts.map((v) => v.x+','+v.y).join(' ');
             var triangle = (a, b, c, d, color='rgb(0,0,0)', uri="http://www.w3.org/2000/svg") => {
                 const el = document.createElementNS(uri, 'polygon');
                 el.setAttribute('style', 'fill:'+color);
-                el.setAttribute('points', assembleTrianlglePoints(a, b, c, d));
+                el.setAttribute('points', assemblePoints([a, b, c, d]));
                 return el;
             }
-            var createChart = (w, h) => {
+            var createCoordinateSystem = (w, h) => {
                 const svg1 = svg();
                 svg1.setAttribute('width', w);
                 svg1.setAttribute('height', h);
@@ -213,7 +239,6 @@
                 //svg1.appendChild(xAxisTip);
                 return svg1;
             }
-
             class Arrow {
                 constructor(svgel, size, rotation, color="#000", updateFn) {
                     this.cont = cont;
@@ -280,7 +305,7 @@
                     this.line.setAttribute('x2', newcoords.x);
                     this.line.setAttribute('y2', newcoords.y);
                     const tippoints = tip2triangle(this.v, this.v);
-                    this.tip.setAttribute('points', assembleTrianlglePoints.apply(this, tippoints));
+                    this.tip.setAttribute('points', assemblePoints(tippoints));
                     this.size = scalar;
                 }
 
@@ -298,20 +323,36 @@
                     this.line.setAttribute('y2', newcoords.y);
                     this.v = newv;
                     const tippoints = tip2triangle(this.v, this.v);
-                    this.tip.setAttribute('points', assembleTrianlglePoints.apply(this, tippoints));
+                    this.tip.setAttribute('points', assemblePoints(tippoints));
                     this.rotation = rads;
                 }
             }
 
-            const chart = createChart(w, h);
-            //const vec2 = createVector(chart, vec(3,1), "red");
-            cont.appendChild(chart);
+            const coords = createCoordinateSystem(w, h);
+            //const vec2 = createVector(coords, vec(3,1), "red");
+            cont.appendChild(coords);
             const offset = vec(cont.offsetLeft, cont.offsetTop);
+
+            /*
+            const chartAngleEl = document.getElementById('chart-angle');
+            const svgChart1 = svg();
+            svgChart1.setAttribute('height', 100);
+            svgChart1.setAttribute('width', 400);
+            chartAngleEl.appendChild(svgChart1);
+            const polyline1 = polyline([vec(0,0), vec(10,10)]);
+            svgChart1.appendChild(polyline1);
+            */
 
             const values = {
                 cosine_sim: document.getElementById('cosine-sim'),
                 dot_product: document.getElementById('dot-product'),
-                euclidean_dist: document.getElementById('euclidean-distance')
+                euclidean_dist: document.getElementById('euclidean-distance'),
+                v1x: document.getElementById('v1x'),
+                v1y: document.getElementById('v1y'),
+                v1magnitude: document.getElementById('v1magnitude'),
+                v2x: document.getElementById('v2x'),
+                v2y: document.getElementById('v2y'),
+                v2magnitude: document.getElementById('v2magnitude')
             };
             const cosine_sim_fn = (v1, v2) => (v1.x*v2.x+v1.y*v2.y)/(v1.magnitude()*v2.magnitude());
             var updateFn = (arr) => {
@@ -320,12 +361,18 @@
                 values.cosine_sim.innerHTML = Math.round(cosine_sim*100)/100;
                 values.euclidean_dist.innerHTML = Math.round(euclidean_dist*100)/100;
                 values.dot_product.innerHTML = Math.round(arr1.v.dot(arr2.v)*100)/100;
+                values.v1x.innerHTML = Math.round(arr1.v.x*100)/100;
+                values.v1y.innerHTML = Math.round(arr1.v.y*100)/100;
+                values.v1magnitude.innerHTML = Math.round(arr1.v.magnitude()*100)/100;
+                values.v2x.innerHTML = Math.round(arr2.v.x*100)/100;
+                values.v2y.innerHTML = Math.round(arr2.v.y*100)/100;
+                values.v2magnitude.innerHTML = Math.round(arr2.v.magnitude()*100)/100;
             }
 
             const color1 = "#24a297";
             const color2 = "#ef5c51";
-            const arr1 = new Arrow(chart, 2, Math.PI/4, color1, updateFn);
-            const arr2 = new Arrow(chart, 1.5, 3, color2, updateFn);
+            const arr1 = new Arrow(coords, 2, Math.PI/4, color1, updateFn);
+            const arr2 = new Arrow(coords, 1.5, 3, color2, updateFn);
         </script>
     </body>
 
