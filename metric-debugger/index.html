@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+    <head>
+        <title>Metric Debugger</title>
+        <style>
+            h1 {
+            }
+            html {
+                font-family: 'Courier New', Courier, monospace;
+            }
+            body {
+                margin: 0;
+            }
+            div#chart {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .axis-label {
+                font-style: italic;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .axis-tick {
+                font-size: 12px;
+            }
+            .arrow-tip {
+                cursor: pointer;
+            }
+            svg {                
+                border-right: 8px solid #ddd;
+                float: left;
+            }
+            div.panel {
+                float: left;
+                padding: 5px 20px;
+            }
+            div.controls, div.values {
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }
+            div.controls>div {
+                margin-bottom: 12px;
+            }
+            div.controls div span {
+                font-weight: bold;
+            }
+            div.values>div {
+                margin-bottom: 10px;
+            }
+            div.values div span {
+                font-weight: bold;
+                font-size: 16px;
+                color: #666;
+                text-transform: uppercase;
+            }
+            label {
+                cursor: pointer;
+            }
+            div.values div span.value {
+                float: right;
+                color: #222;
+                font-weight: bold;
+                font-size: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        
+        <div id="chart"></div>
+
+        <div class="panel">
+            <h1>Metric debugger</h1>
+            <div class="controls">
+                <div>
+                    <span>Rotation</span>
+                    <div>
+                        <label for='mode-rot'>Enabled</label><input id='mode-rot' type='radio' name='mode' value='rotation' checked/><br>
+                        <label for='snap-rot'>Snap to axes</label><input id="snap-rot" type='checkbox' checked/><br>
+                    </div>
+                </div>
+    
+                <div>
+                    <span>Scaling</span>
+                    <div>
+                        <label for='mode-scale'>Enabled</label><input id='mode-scale' type='radio' name='mode' value='scaling' /><br>
+                        <label for='snap-scale'>Snap to integer magnitudes</label><input id="snap-scale" type='checkbox' checked /><br>
+                    </div>
+                </div>
+            </div>
+            <div class="values">
+                <div class="figure">
+                    <span>Cosine similarity: </span>
+                    <span class="value" id="cosine-sim"></span>
+                </div>
+                <div class="figure">
+                    <span>Dot product: </span>
+                    <span class="value" id="dot-product"></span>
+                </div>
+                <div class="figure">
+                    <span>Euclidean distance: </span>
+                    <span class="value" id="euclidean-distance"></span>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const cont = document.getElementById('chart');
+            var scale = 100;
+            var gridSpacing = 100;
+            const minWidthUnits=3;
+            const maxWidthUnits=6;
+            var w = Math.min(Math.max(Math.round(window.innerWidth*.5/(scale*2)), minWidthUnits), maxWidthUnits)*scale*2;
+            var h = Math.round(window.innerHeight/(scale*2))*scale*2;
+
+            class Vector {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                }
+                add(v) { return new Vector(this.x+v.x, this.y+v.y); }
+                multiply(scalar) { return new Vector(this.x*scalar, this.y*scalar); }
+                rotate90() { return new Vector(this.y, -this.x); }
+                magnitude() { return Math.sqrt(this.x**2+this.y**2); }
+                dot(v) { return this.x*v.x+this.y*v.y; }
+            }
+            var vec = (x,y) => new Vector(x, y)
+            var screen2space = (v) => vec((v.x-w/2)/scale, -(v.y-h/2)/scale);
+            var space2screen = (v) => vec((w/2+v.x*scale), (h/2-v.y*scale));
+            var svg = (uri="http://www.w3.org/2000/svg") => document.createElementNS(uri, 'svg');
+            var line = (start, end, color='rgb(0,0,0)', width=1, uri="http://www.w3.org/2000/svg") => {
+                const l = document.createElementNS(uri, 'line');
+                l.setAttribute('x1', start.x);
+                l.setAttribute('y1', start.y);
+                l.setAttribute('x2', end.x);
+                l.setAttribute('y2', end.y);
+                l.setAttribute('style', 'stroke:'+color+';stroke-width:'+width);
+                return l;
+            }
+            var text = (pos, txt, fill='', uri="http://www.w3.org/2000/svg") => {
+                const el = document.createElementNS(uri, 'text');
+                el.setAttribute('x', pos.x);
+                el.setAttribute('y', pos.y);
+                el.innerHTML = txt;
+                return el;
+            }
+            var tip2triangle = (tip, dir, length=.2, breadth=.22, tipwidth=.06) => {
+                const size = Math.sqrt((dir.x**2) + (dir.y**2));
+                const dirNorm = vec((dir.x/size), (dir.y/size));
+                const tip1 = space2screen(tip.add(dirNorm.rotate90().multiply(tipwidth/2)));
+                const tip2 = space2screen(tip.add(dirNorm.rotate90().multiply(-tipwidth/2)));
+                const bottom = tip.add(dirNorm.multiply(-length));
+                const bottom1 = space2screen(bottom.add(dirNorm.rotate90().multiply(breadth/2)));
+                const bottom2 = space2screen(bottom.add(dirNorm.rotate90().multiply(-breadth/2)));
+                return [tip1, tip2, bottom2, bottom1];
+            }
+            var assembleTrianlglePoints = (a, b, c, d) => a.x+','+a.y+' '+b.x+','+b.y+' '+c.x+','+c.y+' '+d.x+','+d.y;
+            var triangle = (a, b, c, d, color='rgb(0,0,0)', uri="http://www.w3.org/2000/svg") => {
+                const el = document.createElementNS(uri, 'polygon');
+                el.setAttribute('style', 'fill:'+color);
+                el.setAttribute('points', assembleTrianlglePoints(a, b, c, d));
+                return el;
+            }
+            var createChart = (w, h) => {
+                const svg1 = svg();
+                svg1.setAttribute('width', w);
+                svg1.setAttribute('height', h);
+                for (let i = 1; i < parseInt(w/gridSpacing); i++) {
+                    color="rgba(0,0,0,0.1)";
+                    if (parseInt(i*gridSpacing - w/2) == 0) color="#222";
+                    const vertical = line(vec(i*gridSpacing, 0), vec(i*gridSpacing, h), color=color);
+                    svg1.appendChild(vertical);
+                }
+                for (let i = 1; i < parseInt(w/scale); i++) {
+                    const tickpos = vec(i*scale, h/2+15);
+                    const tickval = screen2space(tickpos);
+                    tickpos.x += 5;
+                    const tick = text(tickpos, ''+parseInt(tickval.x));
+                    tick.classList.add('axis-tick');
+                    svg1.appendChild(tick);
+                }
+                for (let i = 1; i < parseInt(h/gridSpacing); i++) {
+                    color="rgba(0,0,0,0.1)";
+                    if (parseInt(i*gridSpacing - h/2) == 0) color="#222";
+                    const vertical = line(vec(0, i*gridSpacing), vec(w, i*gridSpacing), color=color);
+                    svg1.appendChild(vertical);
+                }
+                for (let i = 1; i < parseInt(h/scale); i++) {
+                    const tickpos = vec(w/2+5, i*scale);
+                    const tickval = screen2space(tickpos);
+                    if (parseInt(tickval.y) == 0) continue;
+                    tickpos.y += 15;
+                    const tick = text(tickpos, ''+parseInt(tickval.y));
+                    tick.classList.add('axis-tick');
+                    svg1.appendChild(tick);
+                }
+                xlabel = text(vec(w-20, h/2+20), 'x');
+                ylabel = text(vec(w/2+10, 20), 'y');
+                xlabel.classList.add('axis-label');
+                ylabel.classList.add('axis-label');
+                svg1.appendChild(xlabel);
+                svg1.appendChild(ylabel);
+                //const tippoints1 = tip2triangle(screen2space(vec(w/2, 0)), vec(0, 1), .3, .15);
+                //const tippoints2 = tip2triangle(screen2space(vec(w, h/2)), vec(1, 0), .3, .15);
+                //const yAxisTip = triangle(tippoints1[0], tippoints1[1], tippoints1[2]);
+                //const xAxisTip = triangle(tippoints2[0], tippoints2[1], tippoints2[2]);
+                //svg1.appendChild(yAxisTip);
+                //svg1.appendChild(xAxisTip);
+                return svg1;
+            }
+
+            class Arrow {
+                constructor(svgel, size, rotation, color="#000", updateFn) {
+                    this.cont = cont;
+                    this.svgel = svgel;
+                    const v = vec(size, 0);
+                    this.v = v;
+                    this.line = line(space2screen(vec(0,0)), space2screen(v), color, 6);
+                    const tippoints = tip2triangle(v, v);
+                    this.tip = triangle(tippoints[0], tippoints[1], tippoints[2], tippoints[3], color);
+                    this.tip.classList.add('arrow-tip');
+                    this.size = size;
+                    this.rotation = rotation;
+                    svgel.appendChild(this.line);
+                    svgel.appendChild(this.tip);
+                    this.svgel.addEventListener('mousedown', (e) => { this.onMouseDown(e); });
+                    this.svgel.addEventListener('mouseup', (e) => { this.onMouseUp(e); });
+                    this.svgel.addEventListener('mousemove', (e) => { this.onMouseMove(e); });
+                    this.tip.addEventListener('mousedown', (e) => { this.transforming=true; });
+                    //this.tip.addEventListener('mouseup', (e) => { this.transforming=false; });
+                    this.transforming = false;
+                    this.state = null;
+                    this.modeEl = document.getElementsByName('mode');
+                    this.snapRotEl = document.getElementById('snap-rot');
+                    this.snapScaleEl = document.getElementById('snap-scale');
+                    this.rotate(rotation);
+                }
+
+                onMouseDown(e) {
+                    //this.state = vec();
+                }
+
+                onMouseMove(e) {
+                    if (this.transforming) {
+                        const mode = this.modeEl[0].checked ? 'rotation' : 'scaling';
+                        const pos = vec(e.clientX, e.clientY);
+                        const newv = screen2space(pos.add(offset.multiply(-1)));
+                        if (mode == 'rotation') {
+                            const size = Math.sqrt((newv.x**2)+(newv.y**2));
+                            let newrot = Math.asin(newv.y/size);
+                            if (newv.x < 0) {
+                                newrot = Math.PI - newrot;
+                            }
+                            this.v = newv;
+                            this.rotate(newrot);
+                        }
+                        else if (mode == 'scaling') {
+                            this.scale(newv.magnitude());
+                        }
+                        updateFn(this);
+                    }
+                }
+
+                onMouseUp(e) {
+                    this.transforming=false;
+                }
+
+                scale(scalar) {
+                    if (Math.abs(scalar-Math.round(scalar)) < .05 && this.snapScaleEl.checked) {
+                        scalar = Math.round(scalar);
+                    }
+                    const newv = vec(scalar*Math.cos(this.rotation), scalar*Math.sin(this.rotation));
+                    this.v = newv;                    
+                    const newcoords = space2screen(newv);
+                    this.line.setAttribute('x2', newcoords.x);
+                    this.line.setAttribute('y2', newcoords.y);
+                    const tippoints = tip2triangle(this.v, this.v);
+                    this.tip.setAttribute('points', assembleTrianlglePoints.apply(this, tippoints));
+                    this.size = scalar;
+                }
+
+                rotate(rads) {
+                    if (this.snapRotEl.checked && (Math.abs(Math.sin(rads)) < .05 || Math.abs(Math.cos(rads)) < .05)) {
+                        rads = Math.round(rads/(Math.PI/2))*(Math.PI/2);
+                    }
+                    const newv = vec(this.size, 0);
+                    const newx = newv.x*Math.cos(rads)-newv.y*Math.sin(rads);
+                    const newy = newv.x*Math.sin(rads)+newv.y*Math.cos(rads);
+                    newv.x = newx;
+                    newv.y = newy;
+                    const newcoords = space2screen(newv);
+                    this.line.setAttribute('x2', newcoords.x);
+                    this.line.setAttribute('y2', newcoords.y);
+                    this.v = newv;
+                    const tippoints = tip2triangle(this.v, this.v);
+                    this.tip.setAttribute('points', assembleTrianlglePoints.apply(this, tippoints));
+                    this.rotation = rads;
+                }
+            }
+
+            const chart = createChart(w, h);
+            //const vec2 = createVector(chart, vec(3,1), "red");
+            cont.appendChild(chart);
+            const offset = vec(cont.offsetLeft, cont.offsetTop);
+
+            const values = {
+                cosine_sim: document.getElementById('cosine-sim'),
+                dot_product: document.getElementById('dot-product'),
+                euclidean_dist: document.getElementById('euclidean-distance')
+            };
+            const cosine_sim_fn = (v1, v2) => (v1.x*v2.x+v1.y*v2.y)/(v1.magnitude()*v2.magnitude());
+            var updateFn = (arr) => {
+                const cosine_sim = cosine_sim_fn(arr1.v, arr2.v);
+                const euclidean_dist = arr1.v.add(arr2.v.multiply(-1)).magnitude();
+                values.cosine_sim.innerHTML = Math.round(cosine_sim*100)/100;
+                values.euclidean_dist.innerHTML = Math.round(euclidean_dist*100)/100;
+                values.dot_product.innerHTML = Math.round(arr1.v.dot(arr2.v)*100)/100;
+            }
+
+            const color1 = "#24a297";
+            const color2 = "#ef5c51";
+            const arr1 = new Arrow(chart, 2, Math.PI/4, color1, updateFn);
+            const arr2 = new Arrow(chart, 1.5, 3, color2, updateFn);
+        </script>
+    </body>
+
+</html>
