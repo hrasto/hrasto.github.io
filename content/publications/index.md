@@ -1,6 +1,5 @@
 +++
 #title = 'Publications'
-draft = true
 +++
 
 <sup>First-author publications are in *italics*.</sup>

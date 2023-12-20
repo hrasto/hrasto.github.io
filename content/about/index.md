@@ -1,7 +1,6 @@
 +++
 title = 'About'
 date = 2023-12-20T18:09:55+01:00
-draft = true
 +++
 
 I live in Tilburg, the Netherlands, and I come from [Marianka, Slovakia](https://www.google.com/maps/place/900+33+Marianka/).
