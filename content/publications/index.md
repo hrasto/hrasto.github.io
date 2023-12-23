@@ -43,8 +43,8 @@ IEEE VIS.
 
 ---
 
-[Master's Thesis](/Master_Thesis.phd) on demography mining in lexical decision times. 
+[Master's Thesis](/Master_Thesis.pdf) on demography mining in lexical decision times. 
 
-[Bachelor's Thesis](/Bachelor_Thesis.phd) on time series analysis with dynamic time warping. 
+[Bachelor's Thesis](/Bachelor_Thesis.pdf) on time series analysis with dynamic time warping. 
 
 ---
