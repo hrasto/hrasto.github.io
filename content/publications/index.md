@@ -42,3 +42,9 @@ IEEE VIS.
 [presentation](https://vimeo.com/290330651)
 
 ---
+
+[Master's Thesis](/Master_Thesis.phd) on demography mining in lexical decision times. 
+
+[Bachelor's Thesis](/Bachelor_Thesis.phd) on time series analysis with dynamic time warping. 
+
+---
