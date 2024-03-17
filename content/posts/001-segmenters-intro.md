@@ -23,10 +23,10 @@ This contains the namespace of the modules `iterator` and `corpus`.
 The most interesting class (`SegmentedCorpus`) is made up of iterables and an optional `Vocab` object. 
 The constructor takes the following arguments:
 
-- data (iterable): Sequence of any kind of objects, e.g. integers.
-- segmentation (iterable, list of iterables, or dict of iterables): Segmentation info. It can be specified as a single iterable (then a single segmentation with key `0` is assumed), a list of segmentations, or a dictionary of segmentations. 
-- packed (bool, devault True): Indicates the segmentation format. If `True`, the segmentation is represented by a sequence of tuples of form `(tag, segment_size)`. If `False`, then the segmentation is represented as a sequence of tags, e.g. `[A,A,A,B,B]`. (The packed equivalent would be `[(A,3), (B,2)]`.)
-- vocab (instance of `Vocab` or `None` (default)): Vocabulary associated with the data. 
+- **data** (iterable): Sequence of any kind of objects, e.g. integers.
+- **segmentation** (iterable, list of iterables, or dict of iterables): Segmentation info. It can be specified as a single iterable (then a single segmentation with key `0` is assumed), a list of segmentations, or a dictionary of segmentations. 
+- **packed** (bool, devault True): Indicates the segmentation format. If `True`, the segmentation is represented by a sequence of tuples of form `(tag, segment_size)`. If `False`, then the segmentation is represented as a sequence of tags, e.g. `[A,A,A,B,B]`. (The packed equivalent would be `[(A,3), (B,2)]`.)
+- **vocab** (instance of `Vocab` or `None` (default)): Vocabulary associated with the data. 
 
 A vocabulary object can be created by calling `Vocab.build`,  for example: 
 
@@ -74,11 +74,14 @@ Now you can iterate over the corpus using any of the segmentations or their comb
     for seg in corpus.segments(('chunk_type', 'POS')):
         ...
 
-etc. Using `None` as segmentation key iterates over each data point as a standalone segment.
+etc. 
 
-You can also iterate with respect to a finer-grained segmentation. For example, in every iteration, you want to have access to the full extent of a single sentence, which is segmented into phrases. You can achieve this as follows: 
+The function `corpus.segments` segments also has a second parameter (`fine`). 
+The default value is `None` and it indicates that the elements of a segment should be the data points themselves. 
+However, you can also iterate with respect to a different fine-grained segmentation.
+For example, you can set the coarse segmentation to be the sentences, and the the fine grained segmentation to be some phrase-level segmentation, such as chunks, in this case:
 
-    for Seg in corpus.segments_wrt(coarse='sent_num', fine='chunk_num'): 
+    for Seg in corpus.segments(coarse='sent_num', fine='chunk_num'): 
         print(f'sent. {Seg["label_coarse"]}')
         for seg in Seg['segments']: 
             print(f'chunk {seg["label_fine"]}')
@@ -94,14 +97,16 @@ You can also iterate with respect to a finer-grained segmentation. For example, 
     >>> chunk (0, 3)
     ...
 
-Lastly, to persistently store a corpus object, you can call:
+When specifying a fine-grained segmentation this way, it will be automatically modified such that any segment boundary present in the coarse segmentation will also be added to the fine-grained segmentation, if it already isn't there. 
+
+Finally, to persistently store a corpus object, you can call:
 
     corpus.save('path/to/corpus.pkl')
 
 This command uses the `pickle` module to store the object. 
-However, before storing, the all iterators are converted to lists, so that no information is lost. 
-To load it, use: 
+However, before storing, it converts all iterators to lists, such that no information is lost. 
+To load a corpus, you can use: 
 
     SegmentedCorpus.load('path/to/corpus.pkl')
 
-or simply load it via the `pickle` module.
+(Or simply load it via the `pickle` module.)
