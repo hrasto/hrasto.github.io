@@ -35,8 +35,8 @@ A vocabulary object can be created by calling `Vocab.build`,  for example:
 To create a corpus from a text file or a list of sentences, you can call: 
 
     corpus = SegmentedCorpus.build_from_lines([
-        'hello there'.split(), 
-        'how are you ?'.split(),
+        'hello there', 
+        'how are you ?',
     ], split_line=str.split, min_count=1, unk_token='<UNK>')
 
 This creates the vocabulary autmatically. In addition, it stores the line segmentation under the `line_num` key: 
@@ -57,13 +57,13 @@ To build this corpus, having the original CoNLL-format corpus downloaded, do:
         chunk_types = None, 
     )
 
-This helper building function also loads various chunking-specific segmentations: 
+This helper also loads various chunking-specific segmentations: 
 
     print(corpus.list_available_segmentations())
 
     >>> ['POS', 'chunk_type', 'sent_num', 'chunk_num']
 
-Now you can iterate over the corpus using any of the segmentations or their combinations, for example: 
+Now you can iterate over the corpus using any of the segmentations, or their combinations. For example: 
 
     for seg in corpus.segments('chunk_type'):
         ...
@@ -76,10 +76,10 @@ Now you can iterate over the corpus using any of the segmentations or their comb
 
 etc. 
 
-The function `corpus.segments` segments also has a second parameter (`fine`). 
-The default value is `None` and it indicates that the elements of a segment should be the data points themselves. 
-However, you can also iterate with respect to a different fine-grained segmentation.
-For example, you can set the coarse segmentation to be the sentences, and the the fine grained segmentation to be some phrase-level segmentation, such as chunks, in this case:
+The function `corpus.segments` also has a second parameter (`fine`). 
+Its default value (`None`) indicates that the elements of a segment should be the data points themselves. 
+However, you may want the elements of a segment to be grouped according to some other fine grained segmentation. 
+For example, you can set the coarse segmentation to be the sentences, and the fine-grained segmentation to be some phrase-level segmentation, such as chunks:
 
     for Seg in corpus.segments(coarse='sent_num', fine='chunk_num'): 
         print(f'sent. {Seg["label_coarse"]}')
@@ -97,7 +97,7 @@ For example, you can set the coarse segmentation to be the sentences, and the th
     >>> chunk (0, 3)
     ...
 
-When specifying a fine-grained segmentation this way, it will be automatically modified such that any segment boundary present in the coarse segmentation will also be added to the fine-grained segmentation, if it already isn't there. 
+When specifying the fine-grained segmentation in this way, it will be automatically modified such that any segment boundary present in the coarse segmentation will also be added to the fine-grained segmentation, if it already isn't there. 
 
 Finally, to persistently store a corpus object, you can call:
 
