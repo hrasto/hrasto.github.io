@@ -4,22 +4,22 @@ date = 2024-03-15T17:59:35+01:00
 draft = false
 +++
 
-This weekend, I refreshed my segutil (previously segmenters) library. 
+This weekend, I refreshed my segtool (previously segmenters) library. 
 The previous version was already public on GitHub for quite some time, but the code was unnecessarily complicated and bad.
 The new code is much shorter, simpler and also more functional.
 Hence, I decided to post a short update on the usage. 
 
 First, to install, do: 
 
-    pip install git+https://github.com/hrasto/segutil
+    pip install git+https://github.com/hrasto/segtool
 
 The helpers can be imported via the following command: 
 
-    from segutil import *
+    from segtool import *
 
 (Or:)
     
-    import segutil
+    import segtool
 
 This contains the namespace of the modules `iterator` and `corpus`.
 (At the moment there are still other (old) modules in the package, but I will remove them in the future.)
