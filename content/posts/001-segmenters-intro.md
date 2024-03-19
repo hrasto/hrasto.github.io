@@ -1,31 +1,35 @@
 +++
-title = 'Python helpers for working with segmented corpora'
+title = 'Utilities for working with segmented corpora'
 date = 2024-03-15T17:59:35+01:00
 draft = false
 +++
 
-This weekend, I refreshed my segmenters library. 
+This weekend, I refreshed my segutil (previously segmenters) library. 
 The previous version was already public on GitHub for quite some time, but the code was unnecessarily complicated and bad.
 The new code is much shorter, simpler and also more functional.
 Hence, I decided to post a short update on the usage. 
 
 First, to install, do: 
 
-    pip install git+https://github.com/hrasto/segmenters
+    pip install git+https://github.com/hrasto/segutil
 
 The helpers can be imported via the following command: 
 
-    from segmenters import *
+    from segutil import *
+
+(Or:)
+    
+    import segutil
 
 This contains the namespace of the modules `iterator` and `corpus`.
 (At the moment there are still other (old) modules in the package, but I will remove them in the future.)
 
-The most interesting class (`SegmentedCorpus`) is made up of iterables and an optional `Vocab` object. 
+The most interesting class (`Corpus`) is made up of iterables and an optional `Vocab` object. 
 The constructor takes the following arguments:
 
 - **data** (iterable): Sequence of any kind of objects, e.g. integers.
 - **segmentation** (iterable, list of iterables, or dict of iterables): Segmentation info. It can be specified as a single iterable (then a single segmentation with key `0` is assumed), a list of segmentations, or a dictionary of segmentations. 
-- **packed** (bool, devault True): Indicates the segmentation format. If `True`, the segmentation is represented by a sequence of tuples of form `(tag, segment_size)`. If `False`, then the segmentation is represented as a sequence of tags, e.g. `[A,A,A,B,B]`. (The packed equivalent would be `[(A,3), (B,2)]`.)
+- **packed** (bool, default True): Indicates the segmentation format. If `True`, the segmentation is represented by a sequence of tuples of form `(tag, segment_size)`. If `False`, then the segmentation is represented as a sequence of tags, e.g. `[A,A,A,B,B]`. (The packed equivalent would be `[(A,3), (B,2)]`.)
 - **vocab** (instance of `Vocab` or `None` (default)): Vocabulary associated with the data. 
 
 A vocabulary object can be created by calling `Vocab.build`,  for example: 
@@ -34,7 +38,7 @@ A vocabulary object can be created by calling `Vocab.build`,  for example:
 
 To create a corpus from a text file or a list of sentences, you can call: 
 
-    corpus = SegmentedCorpus.build_from_lines([
+    corpus = Corpus.build_from_lines([
         'hello there', 
         'how are you ?',
     ], split_line=str.split, min_count=1, unk_token='<UNK>')
@@ -51,7 +55,7 @@ To demonstrate a more intersting use case, I will use the corpus from the CoNLL 
 This corpus is annotated on the phrase-level (e.g. NP-noun phrase, VP-verb phrase, etc.), and on the word level (part-of-speech tags). 
 To build this corpus, having the original CoNLL-format corpus downloaded, do: 
 
-    corpus = SegmentedCorpus.build_conll(
+    corpus = Corpus.build_conll(
         root = 'path/to/corpus/folder',
         fileids = ['test.txt'], # take the test split only
         chunk_types = None, 
@@ -107,6 +111,6 @@ This command uses the `pickle` module to store the object.
 However, before storing, it converts all iterators to lists, such that no information is lost. 
 To load a corpus, you can use: 
 
-    SegmentedCorpus.load('path/to/corpus.pkl')
+    Corpus.load('path/to/corpus.pkl')
 
 (Or simply load it via the `pickle` module.)
