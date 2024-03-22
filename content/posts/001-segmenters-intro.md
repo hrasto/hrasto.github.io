@@ -4,12 +4,63 @@ date = 2024-03-15T17:59:35+01:00
 draft = false
 +++
 
-This weekend, I refreshed my segtool (previously segmenters) library. 
-The previous version was already public on GitHub for quite some time, but the code was unnecessarily complicated and bad.
-The new code is much shorter, simpler and also more functional.
-Hence, I decided to post a short update on the usage. 
+This weekend, I refreshed segtool (previously segmenters), a library containing Python structures suited for reading hierarchically segmented sequences. 
+For example, if you need to read documents by paragraphs, utterances, sentences, phrases, words, characters (etc.), or any combinations of them in a segment hierarchy, this library can make your life easier!
+Here is a super quick preview of the usage: 
 
-First, to install, do: 
+    from pprint import pprint 
+
+    seq = 'theboysaidhithere'
+    segmentations = {
+        0: 'aaaaaaaaaabbbbbbb',
+        1: 'iiiiiijjjjkklllll', 
+        2: 'uuuvvvwwwwxxyyyyy',
+    }
+    sc = Corpus(seq, segmentations, packed=False)
+
+In this example, we segment the sentence "the boy said hi there" on three levels of granularity specified by the `segmentations` argument. 
+We can now iterate over the segmentations as follows: 
+
+    for seg in sc.segments(0,1,2): 
+        pprint(seg)
+
+    >>> {'data': [{'data': [{'data': ['t', 'h', 'e'], 'label': ('a', 'i', 'u')},
+                            {'data': ['b', 'o', 'y'], 'label': ('a', 'i', 'v')}],
+                'label': ('a', 'i')},
+                {'data': [{'data': ['s', 'a', 'i', 'd'], 'label': ('a', 'j', 'w')}],
+                'label': ('a', 'j')}],
+        'label': ('a',)}
+    >>> {'data': [{'data': [{'data': ['h', 'i'], 'label': ('b', 'k', 'x')}],
+                'label': ('b', 'k')},
+                {'data': [{'data': ['t', 'h', 'e', 'r', 'e'],
+                            'label': ('b', 'l', 'y')}],
+                'label': ('b', 'l')}],
+        'label': ('b',)}
+
+If you wish to skip the intermediate level, you can do so: 
+
+    for seg in sc.segments(0,2): 
+        pprint(seg)
+
+    >>> {'data': [{'data': ['t', 'h', 'e'], 'label': ('a', 'u')},
+                {'data': ['b', 'o', 'y'], 'label': ('a', 'v')},
+                {'data': ['s', 'a', 'i', 'd'], 'label': ('a', 'w')}],
+        'label': ('a',)}
+    >>> {'data': [{'data': ['h', 'i'], 'label': ('b', 'x')},
+                {'data': ['t', 'h', 'e', 'r', 'e'], 'label': ('b', 'y')}],
+        'label': ('b',)}
+
+You can also simply iterate over a single level: 
+
+    for seg in sc.segments(1): 
+        pprint(seg)
+
+    >>> {'data': ['t', 'h', 'e', 'b', 'o', 'y'], 'label': ('i',)}
+    >>> {'data': ['s', 'a', 'i', 'd'], 'label': ('j',)}
+    >>> {'data': ['h', 'i'], 'label': ('k',)}
+    >>> {'data': ['t', 'h', 'e', 'r', 'e'], 'label': ('l',)}
+
+### Install and Import
 
     pip install git+https://github.com/hrasto/segtool
 
@@ -21,8 +72,10 @@ The helpers can be imported via the following command:
     
     import segtool
 
-This contains the namespace of the modules `iterator` and `corpus`.
+This will import the namespaces of the modules `iterator` and `corpus`.
 (At the moment there are still other (old) modules in the package, but I will remove them in the future.)
+
+### The Corpus Class
 
 The most interesting class (`Corpus`) is made up of iterables and an optional `Vocab` object. 
 The constructor takes the following arguments:
@@ -31,10 +84,6 @@ The constructor takes the following arguments:
 - **segmentation** (iterable, list of iterables, or dict of iterables): Segmentation info. It can be specified as a single iterable (then a single segmentation with key `0` is assumed), a list of segmentations, or a dictionary of segmentations. 
 - **packed** (bool, default True): Indicates the segmentation format. If `True`, the segmentation is represented by a sequence of tuples of form `(tag, segment_size)`. If `False`, then the segmentation is represented as a sequence of tags, e.g. `[A,A,A,B,B]`. (The packed equivalent would be `[(A,3), (B,2)]`.)
 - **vocab** (instance of `Vocab` or `None` (default)): Vocabulary associated with the data. 
-
-A vocabulary object can be created by calling `Vocab.build`,  for example: 
-
-    vcb = Vocab.build(list('abc'), min_count=1, unk_token='<UNK>')
 
 To create a corpus from a text file or a list of sentences, you can call: 
 
@@ -45,17 +94,19 @@ To create a corpus from a text file or a list of sentences, you can call:
 
 This creates the vocabulary autmatically. In addition, it stores the line segmentation under the `line_num` key: 
 
-    for segments in corpus.segments('line_num'): 
-        print(corpus.vocab.decode_sent(segments['data']), segments['label'])
+    for seg in corpus.segments('line_num'): 
+        print(corpus.vocab.decode_sent(seg['data']), seg['label'])
 
     >>> ['hello', 'there'] (0,)
     >>> ['how', 'are', 'you', '?'] (1,)
+
+### Chunking Corpus Example
 
 To demonstrate a more intersting use case, I will use the corpus from the CoNLL 2000 chunking shared task. 
 This corpus is annotated on the phrase-level (e.g. NP-noun phrase, VP-verb phrase, etc.), and on the word level (part-of-speech tags). 
 To build this corpus, having the original CoNLL-format corpus downloaded, do: 
 
-    corpus = Corpus.build_conll(
+    corpus = Corpus.build_conll_chunk(
         root = 'path/to/corpus/folder',
         fileids = ['test.txt'], # take the test split only
         chunk_types = None, 
@@ -80,16 +131,16 @@ Now you can iterate over the corpus using any of the segmentations, or their com
 
 etc. 
 
-The function `corpus.segments` also has a second parameter (`fine`). 
-Its default value (`None`) indicates that the elements of a segment should be the data points themselves. 
-However, you may want the elements of a segment to be grouped according to some other fine grained segmentation. 
-For example, you can set the coarse segmentation to be the sentences, and the fine-grained segmentation to be some phrase-level segmentation, such as chunks:
+However, the function `corpus.segments` accepts any amount of segmentation arguments.
+When more than one segmentation is passed, this indicates hierarchical segmentation. 
+The order of the segmentations is expected to correspond from coarse- to fine-grained.
+For example, you can iterate over sentences grouped into chunks: 
 
-    for Seg in corpus.segments(coarse='sent_num', fine='chunk_num'): 
-        print(f'sent. {Seg["label_coarse"]}')
-        for seg in Seg['segments']: 
-            print(f'chunk {seg["label_fine"]}')
-            print(corpus.vocab.decode_sent(seg['data']))
+    for seg in corpus.segments('sent_num', 'chunk_num'): 
+    print(f'sent. {seg["label"]}')
+    for subseg in seg['data']: 
+        print(f'chunk {subseg["label"]}')
+        print(corpus.vocab.decode_sent(subseg['data']))
 
     >>> sent. (0,)
     >>> chunk (0, 0)
