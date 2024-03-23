@@ -4,11 +4,10 @@ date = 2024-03-15T17:59:35+01:00
 draft = false
 +++
 
-This weekend, I refreshed segtool (previously segmenters), a library containing Python structures suited for reading hierarchically segmented sequences. 
-For example, if you need to read documents by paragraphs, utterances, sentences, phrases, words, characters (etc.), or any combinations of them in a segment hierarchy, this library can make your life easier!
-Here is a super quick preview of the usage: 
+This weekend, I refreshed segutil (previously segmenters), a library containing Python structures suited for reading hierarchically segmented sequences. 
+The corpus class in this package provides an interface for iterating over sequential data with respect to different segmentations, their combinations, and nested segments across increasing degree of granularity. 
 
-    from pprint import pprint 
+Here is a super quick preview: 
 
     seq = 'theboysaidhithere'
     segmentations = {
@@ -18,8 +17,8 @@ Here is a super quick preview of the usage:
     }
     sc = Corpus(seq, segmentations, packed=False)
 
-In this example, we segment the sentence "the boy said hi there" on three levels of granularity specified by the `segmentations` argument. 
-We can now iterate over the segmentations as follows: 
+In this example, the sentence "the boy said hi there" is segmented on three levels of granularity specified by the `segmentations` argument. 
+You can now iterate over it using the `segments` method: 
 
     for seg in sc.segments(0,1,2): 
         pprint(seg)
@@ -37,7 +36,7 @@ We can now iterate over the segmentations as follows:
                 'label': ('b', 'l')}],
         'label': ('b',)}
 
-If you wish to skip the intermediate level, you can do so: 
+You may wish to to skip the intermediate level: 
 
     for seg in sc.segments(0,2): 
         pprint(seg)
@@ -50,7 +49,7 @@ If you wish to skip the intermediate level, you can do so:
                 {'data': ['t', 'h', 'e', 'r', 'e'], 'label': ('b', 'y')}],
         'label': ('b',)}
 
-You can also simply iterate over a single level: 
+Or simply iterate over a single level: 
 
     for seg in sc.segments(1): 
         pprint(seg)
@@ -62,17 +61,16 @@ You can also simply iterate over a single level:
 
 ### Install and Import
 
-    pip install git+https://github.com/hrasto/segtool
+    pip install git+https://github.com/hrasto/segutil
 
-The helpers can be imported via the following command: 
+Import via: 
 
-    from segtool import *
+    from segutil import *
 
-(Or:)
+Or:
     
-    import segtool
+    import segutil
 
-This will import the namespaces of the modules `iterator` and `corpus`.
 (At the moment there are still other (old) modules in the package, but I will remove them in the future.)
 
 ### The Corpus Class
@@ -137,10 +135,10 @@ The order of the segmentations is expected to correspond from coarse- to fine-gr
 For example, you can iterate over sentences grouped into chunks: 
 
     for seg in corpus.segments('sent_num', 'chunk_num'): 
-    print(f'sent. {seg["label"]}')
-    for subseg in seg['data']: 
-        print(f'chunk {subseg["label"]}')
-        print(corpus.vocab.decode_sent(subseg['data']))
+        print(f'sent. {seg["label"]}')
+        for subseg in seg['data']: 
+            print(f'chunk {subseg["label"]}')
+            print(corpus.vocab.decode_sent(subseg['data']))
 
     >>> sent. (0,)
     >>> chunk (0, 0)
