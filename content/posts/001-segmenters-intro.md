@@ -7,8 +7,9 @@ draft = false
 This weekend, I refreshed segutil (previously segmenters), a library containing Python structures suited for reading hierarchically segmented sequences. 
 The corpus class in this package provides an interface for iterating over sequential data with respect to different segmentations, their combinations, and nested segments across increasing degree of granularity. 
 
-Here is a super quick preview: 
+Here is a quick preview: 
 
+``` python
     seq = 'theboysaidhithere'
     segmentations = {
         0: 'aaaaaaaaaabbbbbbb',
@@ -16,10 +17,12 @@ Here is a super quick preview:
         2: 'uuuvvvwwwwxxyyyyy',
     }
     sc = Corpus(seq, segmentations, packed=False)
+```
 
 In this example, the sentence "the boy said hi there" is segmented on three levels of granularity specified by the `segmentations` argument. 
 You can now iterate over it using the `segments` method: 
 
+``` python
     for seg in sc.segments(0,1,2): 
         pprint(seg)
 
@@ -35,9 +38,11 @@ You can now iterate over it using the `segments` method:
                             'label': ('b', 'l', 'y')}],
                 'label': ('b', 'l')}],
         'label': ('b',)}
+```
 
 You may wish to to skip the intermediate level: 
 
+``` python
     for seg in sc.segments(0,2): 
         pprint(seg)
 
@@ -48,9 +53,11 @@ You may wish to to skip the intermediate level:
     >>> {'data': [{'data': ['h', 'i'], 'label': ('b', 'x')},
                 {'data': ['t', 'h', 'e', 'r', 'e'], 'label': ('b', 'y')}],
         'label': ('b',)}
+```
 
 Or simply iterate over a single level: 
 
+``` python
     for seg in sc.segments(1): 
         pprint(seg)
 
@@ -58,19 +65,20 @@ Or simply iterate over a single level:
     >>> {'data': ['s', 'a', 'i', 'd'], 'label': ('j',)}
     >>> {'data': ['h', 'i'], 'label': ('k',)}
     >>> {'data': ['t', 'h', 'e', 'r', 'e'], 'label': ('l',)}
+```
 
 ### Install and Import
 
     pip install git+https://github.com/hrasto/segutil
 
 Import via: 
-
+``` python
     from segutil import *
-
+```
 Or:
-    
+``` python 
     import segutil
-
+```
 (At the moment there are still other (old) modules in the package, but I will remove them in the future.)
 
 ### The Corpus Class
@@ -85,18 +93,22 @@ The constructor takes the following arguments:
 
 To create a corpus from a text file or a list of sentences, you can call: 
 
+``` python
     corpus = Corpus.build_from_lines([
         'hello there', 
         'how are you ?',
     ], split_line=str.split, min_count=1, unk_token='<UNK>')
+```
 
 This creates the vocabulary autmatically. In addition, it stores the line segmentation under the `line_num` key: 
 
+``` python
     for seg in corpus.segments('line_num'): 
         print(corpus.vocab.decode_sent(seg['data']), seg['label'])
 
     >>> ['hello', 'there'] (0,)
     >>> ['how', 'are', 'you', '?'] (1,)
+```
 
 ### Chunking Corpus Example
 
@@ -104,20 +116,25 @@ To demonstrate a more intersting use case, I will use the corpus from the CoNLL 
 This corpus is annotated on the phrase-level (e.g. NP-noun phrase, VP-verb phrase, etc.), and on the word level (part-of-speech tags). 
 To build this corpus, having the original CoNLL-format corpus downloaded, do: 
 
+``` python
     corpus = Corpus.build_conll_chunk(
         root = 'path/to/corpus/folder',
         fileids = ['test.txt'], # take the test split only
         chunk_types = None, 
     )
+```
 
 This helper also loads various chunking-specific segmentations: 
 
+``` python
     print(corpus.list_available_segmentations())
 
     >>> ['POS', 'chunk_type', 'sent_num', 'chunk_num']
+```
 
 Now you can iterate over the corpus using any of the segmentations, or their combinations. For example: 
 
+``` python
     for seg in corpus.segments('chunk_type'):
         ...
 
@@ -126,6 +143,7 @@ Now you can iterate over the corpus using any of the segmentations, or their com
     
     for seg in corpus.segments(('chunk_type', 'POS')):
         ...
+```
 
 etc. 
 
@@ -134,6 +152,7 @@ When more than one segmentation is passed, this indicates hierarchical segmentat
 The order of the segmentations is expected to correspond from coarse- to fine-grained.
 For example, you can iterate over sentences grouped into chunks: 
 
+``` python
     for seg in corpus.segments('sent_num', 'chunk_num'): 
         print(f'sent. {seg["label"]}')
         for subseg in seg['data']: 
@@ -149,17 +168,18 @@ For example, you can iterate over sentences grouped into chunks:
     >>> ['said']
     >>> chunk (0, 3)
     ...
+```
 
 When specifying the fine-grained segmentation in this way, it will be automatically modified such that any segment boundary present in the coarse segmentation will also be added to the fine-grained segmentation, if it already isn't there. 
 
 Finally, to persistently store a corpus object, you can call:
-
+``` python
     corpus.save('path/to/corpus.pkl')
-
+```
 This command uses the `pickle` module to store the object. 
 However, before storing, it converts all iterators to lists, such that no information is lost. 
 To load a corpus, you can use: 
-
+``` python
     Corpus.load('path/to/corpus.pkl')
-
+```
 (Or simply load it via the `pickle` module.)
