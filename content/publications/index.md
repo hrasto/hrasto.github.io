@@ -6,6 +6,14 @@
 
 ---
 
+**Tokenization via Language Modeling: the Role of Preceding Text**.
+Hronsky, R., & Keuleers, E. A. (2024). 
+CAWL Workshop at LREC. 
+[paper](/tokenization-via-language-modeling.pdf) | 
+[package](https://github.com/hrasto/segmentgraph)
+
+---
+
 **Role of Context in Unsupervised Sentence Representation Learning: the Case of Dialog Act Modeling**. 
 Hronsky, R., & Keuleers, E. A. (2023).
 Findings of EMNLP.
