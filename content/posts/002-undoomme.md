@@ -4,6 +4,8 @@ date = 2024-06-07T14:00:00+01:00
 draft = false
 +++
 
+<img src="/yellow-dandelion.png" alt="yellow dandelion, white background" width="200" />
+
 *Undoomme* will be a tool designed to help people to break the habit of doomscrolling.
 
 On [Wikipedia](https://en.wikipedia.org/wiki/Doomscrolling), it says: 
