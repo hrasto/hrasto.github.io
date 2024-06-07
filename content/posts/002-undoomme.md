@@ -1,6 +1,6 @@
 +++
 title = 'Undoomme'
-date = 2024-03-15T17:59:35+01:00
+date = 2024-06-07T17:59:35+01:00
 draft = false
 +++
 
@@ -12,7 +12,7 @@ On [Wikipedia](https://en.wikipedia.org/wiki/Doomscrolling), it says:
 
 The definition I plan to adopt is more along the lines of prolonged interaction with recommender systems from famous social media servers.
 
-The features the user should provided with are threefold: 
+The features the user should be provided with are threefold: 
 
 * logging
 * notifications
