@@ -18,4 +18,4 @@ The features the user should provided with are threefold:
 * notifications
 * blockade
 
-For now, this will be the landing page of [undoomme.com](undoomme.com), but later I will probably make a more proper website. 
+For now, this will be the landing page of [undoomme.com](https://undoomme.com), but later I will probably make a more proper website. 
