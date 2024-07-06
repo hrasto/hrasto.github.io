@@ -29,4 +29,4 @@ These are the resulting files sizes:
 By default, the script combines the act recordings of 3 Shakespeare plays (Romeo & Juliet, Hamlet, and As You Like It), but it can be easily configured to download more from LibriVox.
 
 
-See [github](https://github.com/hrasto/shakespeare-audio) for detailed instructions!
+See [github](https://github.com/hrasto/shakespeare-audio) for more detailed instructions!
