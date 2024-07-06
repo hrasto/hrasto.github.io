@@ -9,8 +9,8 @@ Recently I found myself in need of a tinyshakespear-like audio corpus, so I deci
 The script and instructions are on [github](https://github.com/hrasto/shakespeare-audio). 
 
 The corpus is based on ~10 hours of Shakespeare play recordings in English, and contains voices of several female and male speakers.
-The procedure is a bit less elegant, as I did not want to copy and store any audio files.
-But it is not that complicated either - you need to clone a github repository, optionally install ffmpeg and sox, run the script and wait.
+The procedure is a bit less elegant, as I did not want to store any audio files in the repository.
+But it is not that complicated either - you need to clone the repository, optionally install ffmpeg and sox, run the script and wait.
 It automatically downloads everything from [LibriVox](https://librivox.org), installs [whisper.cpp](https://github.com/ggerganov/whisper.cpp) to create transcripts with timestamps, converts the mp3s to wavs, downsamples them to 8bit*8kHz, and splits everything into a train and test set.
 
 At the end, you will have three types of resources for each split:
