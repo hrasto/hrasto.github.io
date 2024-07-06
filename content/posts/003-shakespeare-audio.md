@@ -4,7 +4,7 @@ date = 2024-07-06T12:00:00+01:00
 draft = false
 +++
 
-The [tinyshakespeare](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt) miniature corpus (~1MB) by Andrej Karpathy is a convenient resource for any language model prototyping purposes.
+The [tinyshakespeare](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt) miniature corpus (~1MB) by Andrej Karpathy is a convenient resource for language model prototyping purposes.
 Recently I found myself in need of a tinyshakespear-like audio corpus, so I wrote a script that makes one.
 It is based on ~10 hours worth of Shakespeare play recordings in English, and contains voices of several female/male speakers.
 
