@@ -31,10 +31,10 @@ pygmentsUseClasses = true
     post = ","
 
   [[menu.main]]
-    identifier = "about"
-    name = "about"
-    title = "about"
-    url = "/about/"
+    identifier = "cv"
+    name = "cv"
+    title = "cv"
+    url = "/cv/"
     weight = 30
 
 [permalinks]

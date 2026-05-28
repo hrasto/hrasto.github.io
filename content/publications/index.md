@@ -2,7 +2,20 @@
 #title = 'Publications'
 +++
 
-<sup>First-author publications are in **bold**.</sup>
+<sup>First-author publications are in **bold**. Works under review are marked <em>under review</em>.</sup>
+
+---
+
+<sup><em>under review</em></sup><br>
+**Addressing Sample Bias of Language Data in Vocabulary Creation and Evaluation**.
+Hronský, R., & Keuleers, E. A.
+
+---
+
+<sup><em>under review</em></sup><br>
+**(Extended Abstract) [AMLaP 2026]** *(title to be added upon acceptance)*
+Hronský, R., & Keuleers, E. A.
+AMLaP 2026.
 
 ---
 
@@ -51,8 +64,11 @@ IEEE VIS.
 
 ---
 
+**PhD Thesis** — *Will be added once graduated*.
+Hronský, R. (2025). TU Eindhoven (JADS).
+
 [Master's Thesis](/Master_Thesis.pdf) on demography mining in lexical decision times.
 
-[Bachelor's Thesis](/Bachelor_Thesis.pdf) on time series analysis with dynamic time warping. 
+[Bachelor's Thesis](/Bachelor_Thesis.pdf) on time series analysis with dynamic time warping.
 
 ---
