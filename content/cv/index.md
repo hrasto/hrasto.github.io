@@ -1,5 +1,6 @@
 ---
 title: "CV"
+noTitle: true
 ---
 
 <style>
@@ -9,7 +10,7 @@ title: "CV"
 }
 .cv-print-btn button {
   background: none;
-  border: 1px solid currentColor;
+  border: 0;
   padding: 0.4em 1.1em;
   cursor: pointer;
   font-size: 0.9em;
@@ -59,7 +60,7 @@ title: "CV"
 </style>
 
 <div class="cv-print-btn">
-  <button onclick="window.print()">⬇ Download as PDF</button>
+  <button onclick="window.print()">⬇ Print/Download as PDF</button>
 </div>
 
 # Rastislav Hronský
@@ -74,7 +75,7 @@ title: "CV"
 
 language representation · tokenization · language model generalisation and domain drift · input representation and language codecs · distributional semantics · psycholinguistics and human language processing · evaluation methodology for NLP systems
 
-Open to pivoting into: speech, robotics, energy grid management and load prediction, accessible language technologies, niche R&D.
+Open to pivoting into: algorithmic monitoring, speech, accessible language technologies, robotics, energy grid management and load prediction, niche R&D.
 
 </div>
 
@@ -85,7 +86,7 @@ Open to pivoting into: speech, robotics, energy grid management and load predict
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">PhD</span><span class="date">2020 – 2024</span></div>
 <div class="org">Jheronimus Academy of Data Science / TU Eindhoven, 's-Hertogenbosch, NL</div>
-<p>Thesis: <em>Between Digital Text and Language Model: Role of Context in Language Sampling, Segmentation, and Learning Representations</em>. Supervised by Emmanuel Keuleers. Topics: tokenization, evaluation, context-dependence, segmentation, unsupervised sentence representations, psycholinguistic modelling. Collaboration: systems for generating Chinese pseudocharacters. </p>
+<p>Thesis: <em>Between Digital Text and Language Model: Role of Context in Language Sampling, Segmentation, and Representation</em>. <a href="/thesis-summary.pdf">Thesis summary.</a> Supervised by Emmanuel Keuleers. Topics: tokenization, evaluation, context-dependence, segmentation, unsupervised sentence representations, psycholinguistic modelling. Collaboration: systems for generating Chinese pseudocharacters. </p>
 </div>
 
 <div class="cv-entry">
@@ -169,7 +170,7 @@ See the full [publications page](/publications/) for links and details.
 
 <div class="cv-section">
 
-## Skills (freshest)
+## Skills (fresh)
 
 <div class="cv-pills">
 <span class="cv-pill">Python</span>
@@ -200,7 +201,7 @@ See the full [publications page](/publications/) for links and details.
 
 ## Languages
 
-English (fluent) · German (fluent) · Slovak (native) · Dutch (basic) · Chinese (basic basic)
+English (fluent) · German (fluent) · Slovak (native) · Dutch (elementary) · Chinese (elementary)
 
 </div>
 
@@ -208,6 +209,6 @@ English (fluent) · German (fluent) · Slovak (native) · Dutch (basic) · Chine
 
 ## Personal
 
-Running (marathon PB 3:05) · Road cycling & mountain biking (raced as junior; currently spinning instructor) · Bike touring (Tilburg → Bratislava) · Powerlifting (5×5 @ 130 kg squat) · Interest in nutrition
+Running (marathon PB 3:05) · Road cycling & mountain biking (raced as junior; currently spinning instructor) · Bike touring (Tilburg → Bratislava) · Weight lifting (5×5 @ 130 kg squat) · Interest in nutrition
 
 </div>

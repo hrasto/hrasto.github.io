@@ -64,7 +64,7 @@ IEEE VIS.
 
 ---
 
-**PhD Thesis** — *Will be added once graduated*.
+**PhD Thesis** — *Will be added once graduated*. [Working summary.](/thesis-summary.pdf)
 Hronský, R. (2025). TU Eindhoven (JADS).
 
 [Master's Thesis](/Master_Thesis.pdf) on demography mining in lexical decision times.

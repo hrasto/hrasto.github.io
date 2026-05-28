@@ -8,7 +8,7 @@ pygmentsUseClasses = true
 
 [params]
   description = "Rastislav's personal website"
-  copyright = "Copyright © 2024 Rastislav Hronsky"
+  copyright = "Copyright © 2026 Rastislav Hronsky"
   email = "mail@rhronsky.com"
   dark = "off"
   highlight = true
@@ -18,7 +18,7 @@ pygmentsUseClasses = true
     identifier = "posts"
     name = "posts"
     title = "posts"
-    url = "/"
+    url = "/posts/"
     weight = 10
     post = ","
 
