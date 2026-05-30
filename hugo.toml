@@ -19,7 +19,7 @@ pygmentsUseClasses = true
     name = "posts"
     title = "posts"
     url = "/posts/"
-    weight = 10
+    weight = 1
     post = ","
 
   [[menu.main]]
@@ -27,7 +27,7 @@ pygmentsUseClasses = true
     name = "publications"
     title = "publications"
     url = "/publications/"
-    weight = 20
+    weight = 2
     post = ","
 
   [[menu.main]]
@@ -35,7 +35,7 @@ pygmentsUseClasses = true
     name = "cv"
     title = "cv"
     url = "/cv/"
-    weight = 30
+    weight = 3
 
 [permalinks]
   posts = "/:title/"
