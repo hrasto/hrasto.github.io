@@ -64,7 +64,7 @@ Again, try to hit a slightly harder effort, but keep it moderate, not hard ("bel
 ### 4. The Emptiness Machine — Linkin Park
 **BPM:** 92 &nbsp;·&nbsp; **effort: 4/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/2PnlsTsOTLE5jnBnNe2K0A)
 
-Getting to the moderately hard to hard zone. Should feel like a considerable effort but not an all-out one. Two intervals, each about 1 minute, with a very short recovery inbetween (riders should "stay on hold"). Similar structure as song #2 otherwise. 
+Getting to the moderately-hard to hard zone: should feel like a considerable effort but not an all-out one. Two intervals, each about 1 minute, with a very short recovery inbetween (riders should "stay on hold"). (Similar structure as song #2.) 
 
 |#| start | end | dur | ⬆ | ±res | notes |
 |-|-------|-----|-----|---|------|-------|
@@ -80,7 +80,7 @@ Getting to the moderately hard to hard zone. Should feel like a considerable eff
 ### 5. The Skeleton Dance (Extended Mix) — Bliss
 **BPM:** 75 &nbsp;·&nbsp; **effort: 5/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/2WeHot3QxH0UVHDrfBM8WE)
 
-Hard climbing song. There are 3 levels of resistance: (lvl 1) a very easy one, (lvl 2) then a hard one seated which should feel like "cycling in the sand" or climbing, and (lvl 3) then an even harder one standing which should feel like starting a breakaway in a climb. The progression goes like: 1-2-3-2-3, then a little bit of recovery, and then 1-2-3. 
+Hard climbing song. There are 3 levels of resistance: a very easy one (lvl 1), then a hard one seated, which should feel like "cycling in the sand" or climbing (lvl 2), and then an even harder one, but this time standing, which should feel like getting into a breakaway in a climb (lvl 3). The progression goes like: 1-2-3-2-3, then a little bit of recovery, and then 1-2-3. 
 
 |#| start | end | dur | ⬆ | ±res | notes |
 |-|-------|-----|-----|---|------|-------|
@@ -90,15 +90,15 @@ Hard climbing song. There are 3 levels of resistance: (lvl 1) a very easy one, (
 || _↳ 2:20_ | | |  | -½ |  lvl 2
 || _↳ 2:46_ | | | ⬆ | +½ |   lvl 3
 || _↳ 3:12_ | | |  | BL | recovery |
-|2| 3:12 | 3:05 | 0:45 | | +½ | lvl 1 |
-|| _↳ 1:16_ | | |  | +1½ | lvl 2 |
-|| _↳ 1:55_ | | | ⬆ | +½ | lvl 3 |
-|| _↳ 2:20_ | | |  | BL | recovery |
+|2| 3:36 | 5:18 | 1:42 | | +½ | lvl 1 |
+|| _↳ 4:28_ | | |  | +1½ | lvl 2 |
+|| _↳ 4:54_ | | | ⬆ | +½ | lvl 3 |
+|| _↳ 5:18_ | | |  | BL | recovery |
 
 ---
 
 ### 6. Beautiful Lies — B-complex
-**BPM:** [FILL] &nbsp;·&nbsp; **effort: 4-5/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/0lZrckNc0x7L1ferFR1KyV)
+**BPM:** 87 &nbsp;·&nbsp; **effort: 4-5/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/0lZrckNc0x7L1ferFR1KyV)
 
 2 long intervals; alternating between seated and standing position. Recommendation is to go easier than on the previous song and save efforts for the next on, but riders can push it more if they, e.g., did not hit it hard enough on the previous one. 
 
@@ -142,7 +142,7 @@ Similar to song #5, but with a bit more work. We go: 1-2-3-2-3-2, rest, 3, rest,
 ---
 
 ### 8. IX — Trivium
-**BPM:** - &nbsp;·&nbsp; **effort: 1/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/2StA16dVfTXf7eNNu7a9mD)
+**effort: 1/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/2StA16dVfTXf7eNNu7a9mD)
 
 Recovery for ±2 minutes.
 
@@ -193,12 +193,13 @@ Last song: go to your limits. 3 intervals. On each one of them, increase at the 
 ---
 
 ### 10. Begin By Letting Go — Etherwood
-**BPM:** - &nbsp;·&nbsp; **effort: 1/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/53AOW4L7foxaTYekXTYwMf)
+**effort: 1/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/53AOW4L7foxaTYekXTYwMf)
 
 Cool-down. 
 
 ---
 
 ### 11. Nocturne — Keeno
+[Spotify](https://open.spotify.com/track/1IbyVxvS4UtAV6OelVOQsS?si=e12aee05d861421f)
 
 For stretching/wrapping up/cleaning the bikes. 

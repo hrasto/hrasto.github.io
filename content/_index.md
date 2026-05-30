@@ -2,7 +2,7 @@
 title: "Home"
 ---
 
-I recently completed my PhD at [JADS](https://www.jads.nl) / TU Eindhoven, supervised by [Emmanuel Keuleers](https://www.tilburguniversity.edu/staff/e-a-keuleers).
+I recently completed my PhD thesis at [JADS](https://www.jads.nl) / TU Eindhoven, supervised by [Emmanuel Keuleers](https://www.tilburguniversity.edu/staff/e-a-keuleers).
 My research sits at the intersection of NLP and psycholinguistics — I work on tokenization, language model evaluation, and the conditions under which models generalise across domains and registers.
 [Here](/thesis-summary.pdf) is the summary of my thesis. 
 
