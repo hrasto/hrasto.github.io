@@ -181,7 +181,7 @@ Last song: go to your limits. 3 intervals. On each one of them, increase at the 
 || _↳ 1:15_ | | |  | +½ |  |
 || _↳ 1:42_ | | | ⬆ | +1 |  |
 || _↳ 2:37_ | | |  | BL | recovery |
-|2| 3:25 | 5:03 | 2:38 | | +½ |  |
+|2| 3:25 | 5:03 | 1:38 | | +½ |  |
 || _↳ 3:41_ | | | | +½ |  |
 || _↳ 4:06_ | | | ⬆ | +1 |  |
 || _↳ 5:03_ | | |  | BL | recovery |
