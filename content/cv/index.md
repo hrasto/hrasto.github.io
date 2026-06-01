@@ -75,7 +75,7 @@ noTitle: true
 
 language representation · tokenization · language model generalisation and domain drift · input representation and language codecs · distributional semantics · psycholinguistics and human language processing · evaluation methodology for NLP systems
 
-Open to pivoting into: algorithmic monitoring, speech, accessible language technologies, robotics, energy grid management and load prediction, niche R&D.
+Open to pivoting into: algorithmic monitoring, speech, accessible language technologies, robotics, load prediction in energy grids, niche R&D.
 
 </div>
 
@@ -85,7 +85,7 @@ Open to pivoting into: algorithmic monitoring, speech, accessible language techn
 
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">PhD</span><span class="date">2020 – 2024</span></div>
-<div class="org">Jheronimus Academy of Data Science / TU Eindhoven, 's-Hertogenbosch, NL</div>
+<div class="org">Jheronimus Academy of Data Science / TU Eindhoven, NL</div>
 <p>Thesis: <em>Between Digital Text and Language Model: Role of Context in Language Sampling, Segmentation, and Representation</em>. <a href="/thesis-summary.pdf">Thesis summary.</a> Supervised by Emmanuel Keuleers. Topics: tokenization, evaluation, context-dependence, segmentation, unsupervised sentence representations, psycholinguistic modelling. Collaboration: systems for generating Chinese pseudocharacters. </p>
 </div>
 
@@ -107,44 +107,44 @@ Open to pivoting into: algorithmic monitoring, speech, accessible language techn
 
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">Lecturer</span><span class="date">Jul 2024 – Jul 2025</span></div>
-<div class="org">Tilburg University, Dept. of Cognitive Science and AI · Part-time, on-site</div>
+<div class="org">Tilburg University, Dept. of Cognitive Science and AI, Tilburg, NL · Part-time, on-site</div>
 <p>Taught Deep Learning (MSc Data Science & Society) and Data Structures & Algorithms (BSc CSAI). Responsibilities: teaching, practicals, assignment design, examination design and grading. Supervised 7 MSc theses (DSS); second-reader for additional theses.</p>
 </div>
 
 <div class="cv-entry">
-<div class="cv-entry-header"><span class="role">PhD Researcher</span><span class="date">Jun 2020 – Jun 2024</span></div>
+<div class="cv-entry-header"><span class="role">PhD Student</span><span class="date">Jun 2020 – Jun 2024</span></div>
 <div class="org">Jheronimus Academy of Data Science (JADS), 's-Hertogenbosch, NL · Full-time</div>
-<p>Research at the intersection of NLP and psycholinguistics. Trained and evaluated neural LMs (Transformers, LSTMs, CNNs) and classical NLP models (LDA, word2vec, LSA, n-grams) for text generation, word & sentence representation. PyTorch, HuggingFace. Designed and deployed text classification models for KPN (customer contact analytics). 5 peer-reviewed publications.</p>
+<p>Research at the intersection of NLP and psycholinguistics. Trained and evaluated neural LMs (Transformers, LSTMs, CNNs) and classical LMs (LDA, word2vec, LSA, n-grams) for text generation, word & sentence representation, etc. PyTorch, Keras, HuggingFace, Sklearn, Gensim, etc. Designed and deployed BERT-based text classification models for KPN (customer contact analytics). 5 peer-reviewed publications.</p>
 <!-- <div class="cv-pills"><span class="cv-pill">PyTorch</span><span class="cv-pill">HuggingFace</span><span class="cv-pill">NLP</span><span class="cv-pill">LDA</span><span class="cv-pill">Transformers</span></div> -->
 </div>
 
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">Teaching Assistant</span><span class="date">Aug 2019 – Jan 2020</span></div>
-<div class="org">Tilburg University</div>
+<div class="org">Tilburg University, Tilburg, NL</div>
 <p>Courses: Data Mining for Business & Governance; Machine Learning.</p>
 </div>
 
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">Research Intern</span><span class="date">Apr 2018 – Jul 2018</span></div>
-<div class="org">VRVis GmbH, Vienna · Visual Analytics Group</div>
-<p>Implemented t-SNE and DTW distance measures in the Visplore visual analytics system. Developed components for a recurrent pattern (motif) analysis dashboard for time-series data. C++, OpenGL, GTK.</p>
+<div class="org">VRVis GmbH, Vienna, AT · Visual Analytics Group</div>
+<p>Implemented t-SNE and DTW distance measures in the Visplore visual analytics system. Developed components for a recurrent pattern (motif) analysis dashboard for time-series data. C++.</p>
 </div>
 
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">Back-end & Mobile Developer</span><span class="date">Feb 2017 – Jul 2018</span></div>
-<div class="org">Enterango GmbH, Austria · Part-time</div>
+<div class="org">Enterango GmbH, AT · Part-time</div>
 <p>Back-end development with Symfony (PHP, MySQL); Ionic mobile app development.</p>
 </div>
 
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">Software Developer Intern</span><span class="date">Jul 2016</span></div>
-<div class="org">Siemens, Austria</div>
+<div class="org">Siemens, Vienna, AT</div>
 <p>Built a server-side data visualisation dashboard for the Energy Management department. LAMP stack, ChartJS.</p>
 </div>
 
 <div class="cv-entry">
 <div class="cv-entry-header"><span class="role">Junior Web Developer</span><span class="date">Dec 2014 – May 2016</span></div>
-<div class="org">JSWorks, Slovakia</div>
+<div class="org">JSWorks, Stupava, SK</div>
 <p>Front-end implementations (HTML, CSS, JS, Google Maps API), PHP programming.</p>
 </div>
 
