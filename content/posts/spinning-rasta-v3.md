@@ -6,11 +6,10 @@ date = 2026-05-30
 [11 tracks on Spotify](https://open.spotify.com/playlist/5p14A34pT8Nyum66Fk8Wo7) + [1 track on Soundcloud](https://soundcloud.com/user-635032897/blazy-interlude-ft-aura-vortex?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing)
 
 This is a ±1 hour long musical workout: all intervals are timed for drops and changes of intensity in the music. It is a mixture of drum'n'bass (moderate speed), psytrance (climbing), and metal (high speed). 
-The overall idea is to build up the intensity bit by bit, until about a third of the workout, where we should be hitting the "threshold". 
-From then on, there are mostly high-intensity songs interspersed with recovery periods. 
+The overall idea is to build up the intensity bit by bit, until about a third of the workout, where we should be hitting the "threshold"; from then on, there are mostly high-intensity songs interspersed with recovery periods. 
 
 **Instructions:** Start with finding a "baseline" resistance, which serves as a starting point for every song, and the resistance which we use for recovery. 
-Crucially, this baseline is subjective and should not be "all the way to the left" where there is no resistance; instead riders should find a point where they begin to feel first hints of resistance, but so that they find it easy and manageble "for hours on end". Adjusting the baseline is also an effective way of dialling up/down the whole workout, depending on how the riders feel. 
+Crucially, this baseline is subjective and should not be "all the way to the left" where there is no resistance; instead riders should find a point where they begin to feel the first hints of resistance, but so that they find it easy and manageble "for hours on end". Adjusting the baseline is also an effective way of dialling up/down the whole workout, depending on how the riders feel. 
 From here on, I communicate the effort levels in two ways: as a perceived effort on a scale of 1 to 6 (explained in song descriptions), and in terms of resistance knob turns (1 full, half, 3 quarters, etc.). 
 The latter is always a suggestion, not an instruction, because it is important that riders actively experiment with resistance to hit the desired effort-level, while matching the cadence against music. 
 
@@ -46,7 +45,7 @@ Take it up a notch: 2 intervals, each ±45 seconds. Increase the resistance at t
 ### 3. Up From the Bottom — Linkin Park
 **BPM:** 107 &nbsp;·&nbsp; **effort: 3/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/5IL3VPDy5siXiptYHF2aLS)
 
-Again, try to hit a slightly harder effort, but keep it moderate, not hard ("below threshold"). 4 short intervals, all seated, don't go all the way back to baseline between intervals. Fast song, don't overdo resistance.
+Again, try to hit a slightly harder effort, but keep it moderate, not hard ("below threshold"). 4 short intervals, all seated. Don't go all the way back to baseline between intervals. Fast song, don't overdo resistance.
 
 |#| start | end | dur | ⬆ | ±res | notes |
 |-|-------|-----|-----|---|------|-------|
@@ -100,7 +99,7 @@ Hard climbing song. There are 3 levels of resistance: a very easy one (lvl 1), t
 ### 6. Beautiful Lies — B-complex
 **BPM:** 87 &nbsp;·&nbsp; **effort: 4-5/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/0lZrckNc0x7L1ferFR1KyV)
 
-2 long intervals; alternating between seated and standing position. Recommendation is to go easier than on the previous song and save efforts for the next on, but riders can push it more if they, e.g., did not hit it hard enough on the previous one. 
+Two long intervals; alternate between seated and standing position. The recommendation is to take it easier than the previous song and save efforts for the next one, but riders can push it more if they, for example, did not hit it hard-enough on the previous one. 
 
 |#| start | end | dur | ⬆ | ±res | notes |
 |-|-------|-----|-----|---|------|-------|
