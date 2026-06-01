@@ -192,14 +192,14 @@ Last song: go to your limits. 3 intervals. On each one of them, increase at the 
 
 ---
 
-### 10. Begin By Letting Go — Etherwood
+### 11. Begin By Letting Go — Etherwood
 **effort: 1/6** &nbsp;·&nbsp; [Spotify](https://open.spotify.com/track/53AOW4L7foxaTYekXTYwMf)
 
 Cool-down. 
 
 ---
 
-### 11. Nocturne — Keeno
+### 12. Nocturne — Keeno
 [Spotify](https://open.spotify.com/track/1IbyVxvS4UtAV6OelVOQsS?si=e12aee05d861421f)
 
 For stretching/wrapping up/cleaning the bikes. 
