@@ -6,16 +6,12 @@
 
 ---
 
-<sup><em>under review</em></sup><br>
-**Addressing Sample Bias of Language Data in Vocabulary Creation and Evaluation**.
-Hronský, R., & Keuleers, E. A.
-
----
-
-<sup><em>under review</em></sup><br>
-**(Extended Abstract) [AMLaP 2026]** *(title to be added upon acceptance)*
+**Word Frequency Calibration Using External Information and Topic Models** 
 Hronský, R., & Keuleers, E. A.
 AMLaP 2026.
+[abstract](/amlap2026-word-frequency.pdf) |
+[code](https://github.com/hrasto/amlap26-word-frequency-calibration) | 
+Poster (to be added).
 
 ---
 
