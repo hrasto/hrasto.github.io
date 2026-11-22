@@ -4,6 +4,14 @@
     {{ with .Site.Params.description -}}
     <meta name="description" content="{{ . }}">
     {{ end }}
+    <script>
+        try {
+            const savedTheme = localStorage.getItem("theme");
+            document.documentElement.dataset.theme = savedTheme === "dark" || savedTheme === "bright"
+                ? savedTheme
+                : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "bright");
+        } catch (error) {}
+    </script>
     {{ printf `<link rel="shortcut icon" href="%s">` ("favicon.ico" | absURL) | safeHTML }}
     {{ with .OutputFormats.Get "rss" -}}
         {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
@@ -12,8 +20,6 @@
     {{ $resources := slice -}}
 
     {{ $resources = $resources | append (resources.Get "css/main.css") -}}
-
-    {{ $resources = $resources | append (resources.Get "css/min770px.css") -}}
 
     {{ $dark := .Site.Params.dark | default "auto" -}}
     {{ if not (eq $dark "off") -}}

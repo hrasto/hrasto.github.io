@@ -4,7 +4,16 @@
 
 html {
     font-size: 62.5%;
-    background-color: rgb(255, 255, 255);
+    color-scheme: light;
+    --background: #ffffff;
+    --text: #313a3d;
+    --content-text: #394548;
+    --link: #10a2d8;
+    --link-hover: #61c0e2;
+    --muted: #767676;
+    --rule: #d8d8d8;
+    --toc-text: #3d3d3d;
+    --footer: #b3b3b3;
 }
 
 body {
@@ -14,8 +23,10 @@ body {
     /*
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     */
-    color: #313a3d;
+    color: var(--text);
+    background: var(--background);
     width: 100%;
+    max-width: 600px;
     margin: 0 auto;
     padding: 0 16px;
     line-height: 1.6;
@@ -23,49 +34,120 @@ body {
 }
 
 header#banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
     padding: 28px 0 15px 0;
-    border-bottom: 1px solid #ddd;
 }
 
-header#banner a {
-    color: #313a3d;
-    text-decoration: none;
+header#banner .profile-picture-toggle {
+    position: absolute;
+    top: 28px;
+    right: 0;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    transition: width 250ms ease, height 250ms ease, border-radius 250ms ease;
 }
 
-header#banner a:hover {
-    text-decoration: underline;
+header#banner .profile-picture {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 200%;
+    height: 200%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    transition: width 250ms ease, height 250ms ease;
+}
+
+header#banner .profile-picture-toggle[aria-expanded="true"] {
+    width: min(400px, calc(100vw - 32px));
+    height: min(400px, calc(100vw - 32px));
+    border-radius: 0;
+}
+
+header#banner .profile-picture-toggle[aria-expanded="true"] .profile-picture {
+    width: 100%;
+    height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    header#banner .profile-picture-toggle,
+    header#banner .profile-picture {
+        transition: none;
+    }
+}
+
+header#banner .theme-toggle {
+    height: 40px;
+    margin-left: auto;
+    margin-right: 68px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #767676;
+    font-family: inherit;
+    font-size: 1.3rem;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+header#banner .theme-toggle .light-mode-label,
+html[data-theme="dark"] header#banner .theme-toggle .dark-mode-label {
+    display: none;
+}
+
+html[data-theme="dark"] header#banner .theme-toggle .light-mode-label {
+    display: inline;
 }
 
 header#banner h2 {
-    display: inline;
-    font-size: 21px;
-    font-size: 2.1rem;
-    margin: 0 8px 0 0;
+    font-size: 20px;
+    font-size: 2.0rem;
+    margin: 0;
+    text-transform: capitalize;
 }
 
-header#banner nav {
-    display: inline-block;
+header#banner h2 a {
+    color: inherit;
+    text-decoration: none;
 }
 
-header#banner nav ul {
-    list-style-type: none;
-    font-size: 1.05em;
-    text-transform: lowercase;
+header#banner h2 a:hover {
+    /* text-decoration: underline; */
+    color: #000;
+}
+
+header#banner .back-button {
     margin: 0;
     padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    /* text-transform: ; */
 }
 
-header#banner nav ul li {
-    display: inline;
-    margin: 0 3px;
-}
-
-header#banner nav ul li a {
-    color: #494040;
+header#banner .back-button:hover {
+    /* text-decoration: underline; */
+    color: #000;
 }
 
 main#content a {
-    color: #10a2d8;
+    color: var(--link);
     text-decoration: none;
 }
 
@@ -98,14 +180,14 @@ main#content h6 + p {
 }
 
 main#content p {
-    color: #394548;
+    color: var(--content-text);
     margin: 16px 0;
 }
 
 main#content hr {
     height: 1px;
     border: 0;
-    background: #d8d8d8;
+    background: var(--rule);
     width: 100%;
 }
 
@@ -123,22 +205,27 @@ main#content ul#posts {
 }
 
 main#content ul#posts li {
-    margin: 5px 0;
+    margin: 3px 0;
     padding: 0;
 }
 
 main#content ul#posts small {
+    /* this part displays the date */
+    flex: 0 0 100px;
     font-size: 0.8em;
-    color: #767676;
-    margin-left: 10px;
+    color: var(--muted);
+    text-align: right; 
 }
 
 main#content ul#posts li a {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
     text-decoration: none;
 }
 
 main#content ul#posts li a:hover {
-    color: #61c0e2;
+    color: var(--link-hover);
 }
 
 main#content ul#posts li a:hover small {
@@ -157,7 +244,7 @@ main#content header#post-header h1 {
 main#content header#post-header > div {
     display: block;
     font-size: 0.85em;
-    color: #767676;
+    color: var(--muted);
 }
 
 main#content #toc {
@@ -170,7 +257,7 @@ main#content #toc {
 
 main#content #toc h4 {
     font-size: 1.06em;
-    color: #3d3d3d;
+    color: var(--toc-text);
     margin: 0;
 }
 
@@ -283,6 +370,6 @@ footer#footer {
     font-size: 14px;
     font-size: 1.4rem;
     font-weight: 400;
-    color: #b3b3b3;
+    color: var(--footer);
     margin: 40px 0;
 }

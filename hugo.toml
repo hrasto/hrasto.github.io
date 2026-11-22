@@ -8,9 +8,9 @@ pygmentsUseClasses = true
 
 [params]
   description = "Rastislav's personal website"
-  copyright = "Copyright © 2026 Rastislav Hronsky"
+  copyright = "Copyright © 2026"
   email = "mail@rhronsky.com"
-  dark = "off"
+  dark = "auto"
   highlight = true
 
 [menu]
