@@ -1,7 +1,7 @@
 +++
 title = 'Utilities for working with segmented corpora'
 date = 2024-03-15T17:59:35+01:00
-draft = false
+draft = true
 +++
 
 This weekend, I refreshed segutil (previously segmenters), a library containing Python structures suited for reading hierarchically segmented sequences. 

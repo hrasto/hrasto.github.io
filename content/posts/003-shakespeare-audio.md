@@ -1,7 +1,7 @@
 +++
 title = 'Shakespeare audio: a tiny text and speech corpus'
 date = 2024-07-06T12:00:00+01:00
-draft = false
+draft = true
 +++
 
 The [tinyshakespeare](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt) miniature corpus (~1MB) by Andrej Karpathy is a convenient resource for language model prototyping purposes.

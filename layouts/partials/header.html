@@ -16,7 +16,16 @@
     </script>
     {{- end }}
     <button class="theme-toggle" type="button" aria-label="Toggle dark or bright mode" title="Toggle dark or bright mode" onclick="const isDark = document.documentElement.dataset.theme === 'dark' || (document.documentElement.dataset.theme !== 'bright' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches); const theme = isDark ? 'bright' : 'dark'; document.documentElement.dataset.theme = theme; try { localStorage.setItem('theme', theme); } catch (error) {}"><span class="light-mode-label">Light</span><span class="dark-mode-label">Dark</span></button>
-    <button class="profile-picture-toggle" type="button" aria-label="Enlarge profile picture" aria-expanded="false" onclick="const expanded = this.getAttribute('aria-expanded') === 'true'; this.setAttribute('aria-expanded', String(!expanded)); this.setAttribute('aria-label', expanded ? 'Enlarge profile picture' : 'Shrink profile picture');">
+    <button class="profile-picture-toggle" type="button" aria-label="Enlarge profile picture" aria-expanded="false" onclick="event.stopPropagation(); const expanded = this.getAttribute('aria-expanded') === 'true'; this.setAttribute('aria-expanded', String(!expanded)); this.setAttribute('aria-label', expanded ? 'Enlarge profile picture' : 'Shrink profile picture');">
         <img class="profile-picture" src="{{ "IMG_2067-cropped.JPG" | relURL }}" alt="Profile picture of {{ .Site.Title }}">
     </button>
+    <script>
+        document.addEventListener("click", () => {
+            const toggle = document.querySelector(".profile-picture-toggle");
+            if (toggle.getAttribute("aria-expanded") !== "true") return;
+
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", "Enlarge profile picture");
+        });
+    </script>
 </header>
