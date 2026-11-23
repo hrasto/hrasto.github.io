@@ -162,7 +162,7 @@ main#content h3,
 main#content h4,
 main#content h5,
 main#content h6 {
-    margin-bottom: 0;
+    /* margin-bottom: 1rem; */
     line-height: 1.15;
 }
 
@@ -174,7 +174,10 @@ main#content h2 {
     font-size: 1.8rem;
 }
 
-main#content h3 {
+main#content h3,
+main#content h4,
+main#content h5,
+main#content h6 {
     font-size: 1.6rem;
 }
 
