@@ -71,11 +71,11 @@ noTitle: true
 
 <div class="cv-section">
 
-## Research Interests
+## Research Experience
 
-language representation · tokenization · language model generalisation and domain drift · input representation and language codecs · distributional semantics · psycholinguistics and human language processing · evaluation methodology for NLP systems
+Language representation,  tokenization, evaluation methodology for NLP systems, language model generalisation and domain drift, distributional semantics, psycholinguistics. 
 
-Open to pivoting into: algorithmic monitoring, speech, accessible language technologies, robotics, load prediction in energy grids, niche R&D.
+Other research interests: speech processing, accessible language technologies, robotics, load prediction in energy grids, algorithmic monitoring.
 
 </div>
 
